@@ -10,14 +10,3 @@
     justify-content: space-between;
 }
 
-.game-board-letter {
-    border: 2px solid #d3d6da;
-    margin: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: xx-large;
-    font-weight: bold;
-}
