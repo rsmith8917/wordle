@@ -1,19 +1,23 @@
 .game-board {
-    height: 50vh;
-    width: 40vh;
-    background-color: red;
 }
 
 .game-board-row {
     height: 16.66667%;
+    width: 100%;
     display: flex;
+    align-items: stretch;
+    align-content: stretch;
+    justify-content: space-between;
 }
 
 .game-board-letter {
-    border: 1px solid grey;
-    flex-grow: 1;
-    margin: 4px;
+    border: 2px solid #d3d6da;
+    margin: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 20%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: xx-large;
+    font-weight: bold;
 }

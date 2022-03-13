@@ -30,6 +30,6 @@
 
 .keyboard {
   height: 200px;
-  background-color: grey;
+  border: 2px solid green;
 }
 
