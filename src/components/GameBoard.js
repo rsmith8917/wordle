@@ -3,8 +3,6 @@ import './GameBoard.css'
 import GameTile from './GameTile';
 
 function GameBoard({ width = 350, height = 420 }) {
-
-
     return (
         <div style={{ width, height }} className='game-board'>
             <div className='game-board-row'>
