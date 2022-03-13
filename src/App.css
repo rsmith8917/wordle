@@ -1,3 +1,10 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .header {
   border-bottom: 1px solid rgb(228, 228, 228);
   display: flex;
@@ -13,4 +20,16 @@
   cursor: default;
 }
 
+.main {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.keyboard {
+  height: 200px;
+  background-color: grey;
+}
 

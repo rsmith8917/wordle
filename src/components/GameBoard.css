@@ -1,0 +1,19 @@
+.game-board {
+    height: 50vh;
+    width: 40vh;
+    background-color: red;
+}
+
+.game-board-row {
+    height: 16.66667%;
+    display: flex;
+}
+
+.game-board-letter {
+    border: 1px solid grey;
+    flex-grow: 1;
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
