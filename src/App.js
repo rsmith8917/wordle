@@ -9,10 +9,12 @@ import {
 import IconButton from "./components/IconButton";
 import GameBoard from "./components/GameBoard";
 import Keyboard from "./components/Keyboard";
+import Menu from "./components/Menu";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
   const [darkMode, setDarkMode] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(
     function () {
@@ -37,11 +39,15 @@ function App() {
     setDarkMode((prev) => !prev);
   }
 
+  function toggleMenuOpen() {
+    setMenuOpen((prev) => !prev);
+  }
+
   return (
     <div className={`root ${darkMode ? "dark-mode" : ""}`}>
       <div className="header">
         <div className="header-left">
-          <IconButton icon={faBars} />
+          <IconButton icon={faBars} onClick={toggleMenuOpen} />
           <IconButton icon={faCircleQuestion} />
         </div>
         <div className="header-center">
@@ -58,6 +64,7 @@ function App() {
       <div className="keyboard-container">
         <Keyboard />
       </div>
+      <Menu open={menuOpen} />
     </div>
   );
 }

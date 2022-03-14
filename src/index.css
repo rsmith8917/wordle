@@ -43,6 +43,7 @@ body {
     --key-bg-correct: var(--color-correct);
     --key-bg-absent: var(--color-absent);
     --modal-content-bg: var(--color-tone-7);
+    --color-background: var(--color-tone-7);
 }
 
 .dark-mode {
