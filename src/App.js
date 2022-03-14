@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "./components/IconButton";
 import GameBoard from "./components/GameBoard";
+import Keyboard from "./components/Keyboard";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
@@ -54,7 +55,9 @@ function App() {
       <div className="main">
         <GameBoard {...boardSize} />
       </div>
-      <div className="keyboard">Keyboard</div>
+      <div className="keyboard-container">
+        <Keyboard />
+      </div>
     </div>
   );
 }

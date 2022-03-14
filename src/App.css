@@ -29,8 +29,10 @@
   justify-content: center;
 }
 
-.keyboard {
+.keyboard-container {
   height: 200px;
-  border: 2px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
