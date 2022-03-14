@@ -14,10 +14,11 @@ import Dialog from "./components/layout/Dialog";
 import Help from "./components/layout/Help";
 import Stats from "./components/layout/Stats";
 import Settings from "./components/layout/Settings";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogType, setDialogType] = React.useState("help");
@@ -98,7 +99,7 @@ function App() {
         {dialogType === "help" ? <Help /> : null}
         {dialogType === "stats" ? <Stats /> : null}
         {dialogType === "settings" ? (
-          <Settings setDarkMode={setDarkMode} />
+          <Settings darkMode={darkMode} setDarkMode={setDarkMode} />
         ) : null}
       </Dialog>
     </div>

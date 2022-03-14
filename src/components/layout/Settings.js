@@ -2,7 +2,7 @@ import List from "../common/List";
 import ListItem from "../common/ListItem";
 import Switch from "../common/Switch";
 
-function Settings({ setDarkMode }) {
+function Settings({ darkMode, setDarkMode }) {
   return (
     <List>
       <ListItem
@@ -10,7 +10,7 @@ function Settings({ setDarkMode }) {
         secondary="Any revealed hints must be used in subsequent guesses"
         action={<Switch />}
       />
-      <ListItem primary="Dark Theme" action={<Switch onChange={setDarkMode} />} />
+      <ListItem primary="Dark Theme" action={<Switch value={darkMode} onChange={setDarkMode} />} />
       <ListItem
         primary="High Contrast"
         secondary="Mode For improved color vision"
