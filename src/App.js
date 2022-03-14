@@ -19,6 +19,11 @@ import useLocalStorage from "./hooks/useLocalStorage";
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
+  const [highContrastMode, setHighContrastMode] = useLocalStorage(
+    "high-contrast-mode",
+    false
+  );
+  const [hardMode, setHardMode] = useLocalStorage("hard-mode", false);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogType, setDialogType] = React.useState("help");
@@ -99,7 +104,14 @@ function App() {
         {dialogType === "help" ? <Help /> : null}
         {dialogType === "stats" ? <Stats /> : null}
         {dialogType === "settings" ? (
-          <Settings darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Settings
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            highContrastMode={highContrastMode}
+            setHighContrastMode={setHighContrastMode}
+            hardMode={hardMode}
+            setHardMode={setHardMode}
+          />
         ) : null}
       </Dialog>
     </div>
