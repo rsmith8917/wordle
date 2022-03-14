@@ -1,32 +1,30 @@
-import './GameTile.css'
+import "./GameTile.css";
 
 function GameTile({ letter, state = "empty" }) {
-    function getStyle(state) {
-        const yellow = '#c9b458';
-        const green = '#6aaa64';
+  function getStyle(state) {
 
-        if (state == "empty") {
-            return { border: '2px solid #d3d6da' };
-        }
-        if (state == "pending") {
-            return { border: '2px solid #878a8c' };
-        }
-        if (state == "absent") {
-            return { color: 'white', backgroundColor: '#787c7e' };
-        }
-        if (state == "present") {
-            return { color: 'white', backgroundColor: 'var(--color-present)' };
-        }
-        if (state == "correct") {
-            return { color: 'white', backgroundColor: green };
-        }
+    if (state == "empty") {
+      return { color: "var(--color-tone-1)", border: "2px solid var(--color-tone-4)" };
     }
+    if (state == "pending") {
+      return { color: "var(--color-tone-1)", border: "2px solid var(--color-tone-2)" };
+    }
+    if (state == "absent") {
+      return { color: "white", backgroundColor: "var(--color-absent)" };
+    }
+    if (state == "present") {
+      return { color: "white", backgroundColor: "var(--color-present)" };
+    }
+    if (state == "correct") {
+      return { color: "white", backgroundColor: "var(--color-correct)" };
+    }
+  }
 
-    return (
-        <div className='game-tile' style={getStyle(state)}>
-            {letter}
-        </div>
-    )
+  return (
+    <div className="game-tile" style={getStyle(state)}>
+      {letter}
+    </div>
+  );
 }
 
 export default GameTile;

@@ -13,10 +13,10 @@ function GameBoard({ width = 350, height = 420 }) {
                 <GameTile letter="T" state="present" />
             </div>
             <div className='game-board-row'>
-                <GameTile letter="W" />
-                <GameTile letter="E" />
-                <GameTile letter="A" />
-                <GameTile  />
+                <GameTile letter="W" state="pending" />
+                <GameTile letter="E" state="pending" />
+                <GameTile letter="A" state="pending" />
+                <GameTile />
                 <GameTile />
             </div>
             <div className='game-board-row'>
