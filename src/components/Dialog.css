@@ -1,20 +1,37 @@
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 200ms linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 200ms, opacity 200ms linear;
+}
+
 .dialog-bg {
-    position: absolute;
-    z-index: 2;
-    padding: 8px;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--opacity-50);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  z-index: 2;
+  padding: 8px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--opacity-50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dialog {
-    background-color: var(--color-background);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-    width: 400px;
-    min-height: 300px;
-    border-radius: 4px;
-    padding: 8px;
+  background-color: var(--color-background);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  width: 400px;
+  min-height: 300px;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: flex-end;
 }

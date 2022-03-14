@@ -1,4 +1,6 @@
 import "./Dialog.css";
+import IconButton from "./IconButton";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function Dialog({ open, setOpen }) {
   function closeDialog() {
@@ -7,11 +9,14 @@ function Dialog({ open, setOpen }) {
 
   return (
     <div
-      className="dialog-bg"
-      style={{ visibility: open ? "visible" : "hidden" }}
+      className={`dialog-bg ${open ? "visible" : "hidden"}`}
       onClick={closeDialog}
     >
-      <div className="dialog">This is a dialog!</div>
+      <div className="dialog">
+        <div className="dialog-header">
+          <IconButton icon={faXmark} onClick={closeDialog} />
+        </div>
+      </div>
     </div>
   );
 }
