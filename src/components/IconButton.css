@@ -1,5 +1,6 @@
 .icon-button {
-    background-color: white;
+    background-color: var(--color-background);
+    color: var(--color-tone-1);
     border: none;
     cursor: pointer;
     font-size: 20px;

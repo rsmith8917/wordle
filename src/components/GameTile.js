@@ -15,7 +15,7 @@ function GameTile({ letter, state = "empty" }) {
             return { color: 'white', backgroundColor: '#787c7e' };
         }
         if (state == "present") {
-            return { color: 'white', backgroundColor: yellow };
+            return { color: 'white', backgroundColor: 'var(--color-present)' };
         }
         if (state == "correct") {
             return { color: 'white', backgroundColor: green };

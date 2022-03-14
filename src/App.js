@@ -6,6 +6,7 @@ import GameBoard from './components/GameBoard';
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
+  const [darkMode, setDarkMode] = React.useState(false);
 
   React.useEffect(function () {
     function handleResize() {
@@ -23,8 +24,12 @@ function App() {
     })
   }, [setBoardSize]);
 
+  function handleSettings() {
+    setDarkMode(prev => !prev);
+  }
+
   return (
-    <div className='root'>
+    <div className={`root ${darkMode ? 'dark-mode' : ''}`}>
       <div className='header'>
         <div className='header-left'>
           <IconButton icon={faBars} />
@@ -35,7 +40,7 @@ function App() {
         </div>
         <div className='header-right'>
           <IconButton icon={faChartColumn} />
-          <IconButton icon={faGear} />
+          <IconButton icon={faGear} onClick={handleSettings} />
         </div>
       </div>
       <div className='main'>
