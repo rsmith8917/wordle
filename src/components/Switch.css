@@ -1,0 +1,35 @@
+.switch-container {
+  width: 34px;
+  height: 20px;
+  background-color: var(--color-tone-3);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch-circle {
+  position: absolute;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-tone-7);
+  top: 2px;
+  z-index: 1;
+  transition: left 150ms;
+}
+
+.switch-circle-off {
+  left: 2px;
+}
+
+.switch-circle-on {
+  left: 16px;
+}
+
+.switch-container-off {
+  background-color: var(--color-tone-3);
+}
+
+.switch-container-on {
+  background-color: var(--color-correct);
+}

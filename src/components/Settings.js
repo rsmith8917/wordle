@@ -1,5 +1,6 @@
 import List from "./List";
 import ListItem from "./ListItem";
+import Switch from "./Switch";
 
 function Settings() {
   return (
@@ -7,16 +8,16 @@ function Settings() {
       <ListItem
         primary="Hard Mode"
         secondary="Any revealed hints must be used in subsequent guesses"
-        action={<button>toggle</button>}
+        action={<Switch />}
       />
       <ListItem
         primary="Dark Theme"
-        action={<button>toggle</button>}
+        action={<Switch />}
       />
       <ListItem
         primary="High Contrast"
         secondary="Mode For improved color vision"
-        action={<button>toggle</button>}
+        action={<Switch />}
       />
     </List>
   );
