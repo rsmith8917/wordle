@@ -10,11 +10,13 @@ import IconButton from "./components/IconButton";
 import GameBoard from "./components/GameBoard";
 import Keyboard from "./components/Keyboard";
 import Menu from "./components/Menu";
+import Dialog from "./components/Dialog";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
   const [darkMode, setDarkMode] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
 
   React.useEffect(
     function () {
@@ -43,12 +45,16 @@ function App() {
     setMenuOpen((prev) => !prev);
   }
 
+  function toggleHelpDialog() {
+    setDialogOpen(prev => !prev);
+  }
+
   return (
     <div className={`root ${darkMode ? "dark-mode" : ""}`}>
       <div className="header">
         <div className="header-left">
           <IconButton icon={faBars} onClick={toggleMenuOpen} />
-          <IconButton icon={faCircleQuestion} />
+          <IconButton icon={faCircleQuestion} onClick={toggleHelpDialog} />
         </div>
         <div className="header-center">
           <span className="title">Wordle</span>
@@ -65,6 +71,7 @@ function App() {
         <Keyboard />
       </div>
       <Menu open={menuOpen} setOpen={setMenuOpen} />
+      <Dialog open={dialogOpen} setOpen={setDialogOpen} />
     </div>
   );
 }
