@@ -11,12 +11,16 @@ import GameBoard from "./components/GameBoard";
 import Keyboard from "./components/Keyboard";
 import Menu from "./components/Menu";
 import Dialog from "./components/Dialog";
+import Help from "./components/Help";
+import Stats from "./components/Stats";
+import Settings from "./components/Settings";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
   const [darkMode, setDarkMode] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogType, setDialogType] = React.useState("help");
 
   React.useEffect(
     function () {
@@ -37,16 +41,23 @@ function App() {
     [setBoardSize]
   );
 
-  function handleSettings() {
-    setDarkMode((prev) => !prev);
-  }
-
   function toggleMenuOpen() {
     setMenuOpen((prev) => !prev);
   }
 
   function toggleHelpDialog() {
-    setDialogOpen(prev => !prev);
+    setDialogType("help");
+    setDialogOpen((prev) => !prev);
+  }
+
+  function toggleStatsDialog() {
+    setDialogType("stats");
+    setDialogOpen((prev) => !prev);
+  }
+
+  function toggleSettingsDialog() {
+    setDialogType("settings");
+    setDialogOpen((prev) => !prev);
   }
 
   return (
@@ -60,8 +71,8 @@ function App() {
           <span className="title">Wordle</span>
         </div>
         <div className="header-right">
-          <IconButton icon={faChartColumn} />
-          <IconButton icon={faGear} onClick={handleSettings} />
+          <IconButton icon={faChartColumn} onClick={toggleStatsDialog} />
+          <IconButton icon={faGear} onClick={toggleSettingsDialog} />
         </div>
       </div>
       <div className="main">
@@ -71,7 +82,11 @@ function App() {
         <Keyboard />
       </div>
       <Menu open={menuOpen} setOpen={setMenuOpen} />
-      <Dialog open={dialogOpen} setOpen={setDialogOpen} />
+      <Dialog open={dialogOpen} setOpen={setDialogOpen}>
+        {dialogType === "help" ? <Help /> : null}
+        {dialogType === "stats" ? <Stats /> : null}
+        {dialogType === "settings" ? <Settings /> : null}
+      </Dialog>
     </div>
   );
 }

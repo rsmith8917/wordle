@@ -2,7 +2,7 @@ import "./Dialog.css";
 import IconButton from "./IconButton";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function Dialog({ open, setOpen }) {
+function Dialog({ open, setOpen, children }) {
   function closeDialog() {
     setOpen(false);
   }
@@ -16,6 +16,7 @@ function Dialog({ open, setOpen }) {
         <div className="dialog-header">
           <IconButton icon={faXmark} onClick={closeDialog} />
         </div>
+        {children}
       </div>
     </div>
   );
