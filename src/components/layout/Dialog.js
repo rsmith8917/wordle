@@ -15,7 +15,7 @@ function Dialog({ open, setOpen, title, children }) {
       <div className="dialog">
         <div className="dialog-header">
           <div></div>
-          {title}
+          <span className="dialog-title">{title}</span>
           <IconButton icon={faXmark} onClick={closeDialog} />
         </div>
         {children}

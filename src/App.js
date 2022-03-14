@@ -60,6 +60,14 @@ function App() {
     setDialogOpen((prev) => !prev);
   }
 
+  function getDialogTitle(dialogType) {
+    if (dialogType === "help") return "HOW TO PLAY";
+    if (dialogType === "stats") return "STATISTICS";
+    if (dialogType === "settings") return "SETTINGS";
+
+    return "";
+  }
+
   return (
     <div className={`root ${darkMode ? "dark-mode" : ""}`}>
       <div className="header">
@@ -82,7 +90,11 @@ function App() {
         <Keyboard />
       </div>
       <Menu open={menuOpen} setOpen={setMenuOpen} />
-      <Dialog open={dialogOpen} setOpen={setDialogOpen}>
+      <Dialog
+        open={dialogOpen}
+        setOpen={setDialogOpen}
+        title={getDialogTitle(dialogType)}
+      >
         {dialogType === "help" ? <Help /> : null}
         {dialogType === "stats" ? <Stats /> : null}
         {dialogType === "settings" ? (
