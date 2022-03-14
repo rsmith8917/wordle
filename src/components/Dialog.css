@@ -25,7 +25,7 @@
 .dialog {
   background-color: var(--color-background);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  width: 400px;
+  min-width: 500px;
   min-height: 300px;
   border-radius: 4px;
   padding: 8px;
