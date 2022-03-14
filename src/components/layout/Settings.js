@@ -1,8 +1,8 @@
-import List from "./List";
-import ListItem from "./ListItem";
-import Switch from "./Switch";
+import List from "../common/List";
+import ListItem from "../common/ListItem";
+import Switch from "../common/Switch";
 
-function Settings() {
+function Settings({ setDarkMode }) {
   return (
     <List>
       <ListItem
@@ -10,10 +10,7 @@ function Settings() {
         secondary="Any revealed hints must be used in subsequent guesses"
         action={<Switch />}
       />
-      <ListItem
-        primary="Dark Theme"
-        action={<Switch />}
-      />
+      <ListItem primary="Dark Theme" action={<Switch onChange={setDarkMode} />} />
       <ListItem
         primary="High Contrast"
         secondary="Mode For improved color vision"

@@ -6,14 +6,14 @@ import {
   faChartColumn,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
-import IconButton from "./components/IconButton";
-import GameBoard from "./components/GameBoard";
-import Keyboard from "./components/Keyboard";
-import Menu from "./components/Menu";
-import Dialog from "./components/Dialog";
-import Help from "./components/Help";
-import Stats from "./components/Stats";
-import Settings from "./components/Settings";
+import IconButton from "./components/common/IconButton";
+import GameBoard from "./components/gameBoard/GameBoard";
+import Keyboard from "./components/keyboard/Keyboard";
+import Menu from "./components/layout/Menu";
+import Dialog from "./components/layout/Dialog";
+import Help from "./components/layout/Help";
+import Stats from "./components/layout/Stats";
+import Settings from "./components/layout/Settings";
 
 function App() {
   const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
@@ -85,7 +85,9 @@ function App() {
       <Dialog open={dialogOpen} setOpen={setDialogOpen}>
         {dialogType === "help" ? <Help /> : null}
         {dialogType === "stats" ? <Stats /> : null}
-        {dialogType === "settings" ? <Settings /> : null}
+        {dialogType === "settings" ? (
+          <Settings setDarkMode={setDarkMode} />
+        ) : null}
       </Dialog>
     </div>
   );

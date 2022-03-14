@@ -1,7 +1,7 @@
 import "./Menu.css";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import IconButton from "./IconButton";
+import IconButton from "../common/IconButton";
 
 function Menu({ open, setOpen }) {
   function closeMenu() {
