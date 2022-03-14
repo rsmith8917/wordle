@@ -1,11 +1,17 @@
 .menu {
-    height: 100%;
-    background-color: var(--color-background);
-    z-index: 1;
-    top: 54px;
-    position: absolute;
-    width: 350px;
-    overflow: hidden;
-    transition: left 200ms;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  }
+  height: 100%;
+  background-color: var(--color-background);
+  z-index: 1;
+  top: 54px;
+  position: absolute;
+  width: 350px;
+  overflow: hidden;
+  transition: left 200ms;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  padding: 8px;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+}

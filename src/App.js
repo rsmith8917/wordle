@@ -64,7 +64,7 @@ function App() {
       <div className="keyboard-container">
         <Keyboard />
       </div>
-      <Menu open={menuOpen} />
+      <Menu open={menuOpen} setOpen={setMenuOpen} />
     </div>
   );
 }

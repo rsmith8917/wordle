@@ -6,3 +6,12 @@
   font-size: 20px;
   margin: 2px;
 }
+
+.icon-button-text {
+  font-size: small;
+  margin-left: 4px;
+}
+
+.icon-button-text:hover {
+  text-decoration: underline;
+}
