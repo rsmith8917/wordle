@@ -13,7 +13,6 @@
 .dialog-bg {
   position: absolute;
   z-index: 2;
-  padding: 8px;
   width: 100vw;
   height: 100vh;
   background-color: var(--opacity-50);
@@ -25,7 +24,8 @@
 .dialog {
   background-color: var(--color-background);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
-  min-width: 500px;
+  width: 100%;
+  max-width: 500px;
   min-height: 300px;
   border-radius: 4px;
   padding: 8px;
