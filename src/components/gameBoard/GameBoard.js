@@ -1,54 +1,26 @@
-import React from 'react';
-import './GameBoard.css'
-import GameTile from './GameTile';
+import React from "react";
+import "./GameBoard.css";
+import GameTile from "./GameTile";
 
-function GameBoard({ width = 350, height = 420 }) {
-    return (
-        <div style={{ width, height }} className='game-board'>
-            <div className='game-board-row'>
-                <GameTile letter="T" state="correct" />
-                <GameTile letter="O" state="absent" />
-                <GameTile letter="A" state="present" />
-                <GameTile letter="S" state="absent" />
-                <GameTile letter="T" state="present" />
-            </div>
-            <div className='game-board-row'>
-                <GameTile letter="W" state="pending" />
-                <GameTile letter="E" state="pending" />
-                <GameTile letter="A" state="pending" />
-                <GameTile />
-                <GameTile />
-            </div>
-            <div className='game-board-row'>
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-            </div>
-            <div className='game-board-row'>
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-            </div>
-            <div className='game-board-row'>
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-            </div>
-            <div className='game-board-row'>
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-                <GameTile />
-            </div>
+function GameBoard({ boardState, width = 350, height = 420 }) {
+  function getLetterArray(word) {
+    const array = ["", "", "", "", ""];
+    for (let i = 0; i < array.length; i++) {
+      array[i] = word[i] || "";
+    }
+    return array;
+  }
+  return (
+    <div style={{ width, height }} className="game-board">
+      {boardState.map((word, i) => (
+        <div className="game-board-row" key={i}>
+          {getLetterArray(word).map((letter, j) => (
+            <GameTile letter={letter} state="pending" key={j} />
+          ))}
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
 export default GameBoard;

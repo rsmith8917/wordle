@@ -1,10 +1,19 @@
 import "./Keyboard.css";
 
-function KeyboardKey({ text, wide = false, fontSize = "small", ...props }) {
+function KeyboardKey({
+  text,
+  onKeyPress,
+  wide = false,
+  fontSize = "small",
+  ...props
+}) {
   return (
     <div
       className="keyboard-key"
       style={{ width: wide ? 64 : 43, fontSize }}
+      onClick={() => {
+        onKeyPress(text);
+      }}
       {...props}
     >
       {text}

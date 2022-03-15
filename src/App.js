@@ -27,6 +27,14 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogType, setDialogType] = React.useState("help");
+  const [boardState, setBoardState] = useLocalStorage("board-state", [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   React.useEffect(
     function () {
@@ -74,6 +82,18 @@ function App() {
     return "";
   }
 
+  function onKeyPress(key) {
+    setBoardState((bs) => {
+      const w = bs[0];
+      let newW = "";
+      if (key === "BACK")
+        newW = w.slice(0, -1);
+      else
+        newW = w.length < 5 ? w + key : w;
+      return [newW, "", "", "", "", ""];
+    });
+  }
+
   return (
     <div className={`root ${darkMode ? "dark-mode" : ""}`}>
       <div className="header">
@@ -90,10 +110,10 @@ function App() {
         </div>
       </div>
       <div className="main">
-        <GameBoard {...boardSize} />
+        <GameBoard {...boardSize} boardState={boardState} />
       </div>
       <div className="keyboard-container">
-        <Keyboard />
+        <Keyboard onKeyPress={onKeyPress} />
       </div>
       <Menu open={menuOpen} setOpen={setMenuOpen} />
       <Dialog
