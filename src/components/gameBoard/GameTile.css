@@ -1,20 +1,32 @@
-@keyframes flip {
-  0% {
-    height: 100%;
-    top: 0%;
-    transform: rotateX(0deg);
+  @keyframes PopIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    40% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
   }
-  50% {
-    height: 0;
-    top: 50%;
-    transform: rotateX(90deg);
+
+  @keyframes FlipIn {
+    0% {
+      transform: rotateX(0);
+    }
+    100% {
+      transform: rotateX(-90deg);
+    }
   }
-  100% {
-    height: 100%;
-    top: 0%;
-    transform: rotateX(0deg);
+
+  @keyframes FlipOut {
+    0% {
+      transform: rotateX(-90deg);
+    }
+    100% {
+      transform: rotateX(0);
+    }
   }
-}
 
 .game-tile-container {
   margin: 2px;
@@ -26,7 +38,6 @@
   font-size: xx-large;
   font-weight: bold;
   position: relative;
-  perspective: 200px;
 }
 
 .game-tile {
@@ -38,8 +49,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation-name: flip;
-  animation-duration: 1s;
+  animation-duration: 250ms;
   overflow: hidden;
-  
+  box-sizing: border-box;
+  animation-fill-mode: forwards;
 }
