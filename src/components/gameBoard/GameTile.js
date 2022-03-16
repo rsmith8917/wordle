@@ -2,12 +2,17 @@ import "./GameTile.css";
 
 function GameTile({ letter, state = "empty" }) {
   function getStyle(state) {
-
     if (state === "empty") {
-      return { color: "var(--color-tone-1)", border: "2px solid var(--color-tone-4)" };
+      return {
+        color: "var(--color-tone-1)",
+        border: "2px solid var(--color-tone-4)",
+      };
     }
     if (state === "pending") {
-      return { color: "var(--color-tone-1)", border: "2px solid var(--color-tone-2)" };
+      return {
+        color: "var(--color-tone-1)",
+        border: "2px solid var(--color-tone-2)",
+      };
     }
     if (state === "absent") {
       return { color: "white", backgroundColor: "var(--color-absent)" };
@@ -21,8 +26,10 @@ function GameTile({ letter, state = "empty" }) {
   }
 
   return (
-    <div className="game-tile" style={getStyle(state)}>
-      {letter}
+    <div className="game-tile-container">
+      <div className="game-tile" style={getStyle(state)}>
+        {letter}
+      </div>
     </div>
   );
 }
