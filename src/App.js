@@ -15,9 +15,9 @@ import Help from "./components/layout/Help";
 import Stats from "./components/layout/Stats";
 import Settings from "./components/layout/Settings";
 import useLocalStorage from "./hooks/useLocalStorage";
+import useResizeBoard from "./hooks/useResizeBoard";
 
 function App() {
-  const [boardSize, setBoardSize] = React.useState({ width: 350, height: 420 });
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
   const [highContrastMode, setHighContrastMode] = useLocalStorage(
     "high-contrast-mode",
@@ -27,33 +27,19 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogType, setDialogType] = React.useState("help");
-  const [boardState, setBoardState] = useLocalStorage("board-state", [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [gameState, setGameState] = useLocalStorage("game-state", {
+    boardState: ["", "", "", "", "", ""],
+    evaluations: [null, null, null, null, null, null],
+    rowIndex: 0,
+    solution: "tease",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  });
 
-  React.useEffect(
-    function () {
-      function handleResize() {
-        const height = window.innerHeight - 54 - 200; // subtract header and keyboard heights
-        if (height < 420) {
-          setBoardSize({ height, width: height * 0.8333 });
-        } else {
-          setBoardSize({ width: 350, height: 420 });
-        }
-      }
-
-      window.addEventListener("resize", handleResize);
-      return function () {
-        window.removeEventListener("resize", handleResize);
-      };
-    },
-    [setBoardSize]
-  );
+  const boardSize = useResizeBoard();
 
   function toggleMenuOpen() {
     setMenuOpen((prev) => !prev);
@@ -83,14 +69,45 @@ function App() {
   }
 
   function onKeyPress(key) {
-    setBoardState((bs) => {
-      const w = bs[0];
-      let newW = "";
-      if (key === "BACK")
-        newW = w.slice(0, -1);
-      else
-        newW = w.length < 5 ? w + key : w;
-      return [newW, "", "", "", "", ""];
+    setGameState((prevGameState) => {
+      const boardStateCopy = [...gameState.boardState];
+
+      if (key === "ENTER") {
+        if (prevGameState.boardState[prevGameState.rowIndex].length === 5) {
+          // evaluate word
+          const word = prevGameState.boardState[prevGameState.rowIndex];
+          const evaluations = [...prevGameState.evaluations];
+          evaluations[prevGameState.rowIndex] = word.split('').map((l, i) => {
+            const letter = l.toLowerCase();
+            const solution = prevGameState.solution.split('');
+            if (solution.some(s => s === letter)) {
+              if (solution[i] === letter) {
+                return "correct";
+              } else {
+                return "present";
+              }
+            } else {
+              return "absent";
+            }
+          });
+
+          return { ...prevGameState, evaluations, rowIndex: prevGameState.rowIndex + 1 };
+        } else {
+          return prevGameState;
+        }
+      } else if (key === "BACK") {
+        // remove letter from end of word
+        boardStateCopy[prevGameState.rowIndex] = boardStateCopy[
+          prevGameState.rowIndex
+        ].slice(0, -1);
+        return { ...prevGameState, boardState: boardStateCopy };
+      } else if (boardStateCopy[prevGameState.rowIndex].length < 5) {
+        // add letter to end of word
+        boardStateCopy[prevGameState.rowIndex] += key;
+        return { ...prevGameState, boardState: boardStateCopy };
+      } else {
+        return prevGameState;
+      }
     });
   }
 
@@ -110,7 +127,7 @@ function App() {
         </div>
       </div>
       <div className="main">
-        <GameBoard {...boardSize} boardState={boardState} />
+        <GameBoard {...boardSize} gameState={gameState} />
       </div>
       <div className="keyboard-container">
         <Keyboard onKeyPress={onKeyPress} />
