@@ -29,32 +29,11 @@ function GameTile({ letter, state = "empty" }) {
     }
   }
 
-  // const { angle } = useSpring({
-  //   from: { angle: state === "empty" ? 0 : 1 },
-  //   to: { angle: state === "empty" ? 1 : 0  },
-  //   config: { duration: 250 },
-  // });
-
-  // const { bgColor } = useSpring({
-  //   from: { bgColor: "var(--color-absent)" },
-  //   to: { bgColor: getStyle(state)?.backgroundColor },
-  //   delay: 125,
-  //   immediate: true,
-  // });
-
   return (
     <div className="game-tile-container">
       <div
         className="game-tile"
         style={{ ...getStyle(state) }}
-        // style={{
-        //   ...getStyle(state),
-        //   transform: angle.to({
-        //     range: [0, 0.5, 1],
-        //     output: [0, -90, 0],
-        //   }).to((a) => `rotateX(${a}deg)`),
-        //   backgroundColor: bgColor.to(c => c),
-        // }}
       >
         {letter}
       </div>

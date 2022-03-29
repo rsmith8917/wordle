@@ -16,6 +16,7 @@ import Stats from "./components/layout/Stats";
 import Settings from "./components/layout/Settings";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useResizeBoard from "./hooks/useResizeBoard";
+import validWords from "./validWords";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -77,21 +78,30 @@ function App() {
           // evaluate word
           const word = prevGameState.boardState[prevGameState.rowIndex];
           const evaluations = [...prevGameState.evaluations];
-          evaluations[prevGameState.rowIndex] = word.split('').map((l, i) => {
-            const letter = l.toLowerCase();
-            const solution = prevGameState.solution.split('');
-            if (solution.some(s => s === letter)) {
-              if (solution[i] === letter) {
-                return "correct";
+          let rowIndex = prevGameState.rowIndex;
+          if (validWords.includes(word.toLowerCase())) {
+            rowIndex = rowIndex + 1;
+            evaluations[prevGameState.rowIndex] = word.split("").map((l, i) => {
+              const letter = l.toLowerCase();
+              const solution = prevGameState.solution.split("");
+              if (solution.some((s) => s === letter)) {
+                if (solution[i] === letter) {
+                  return "correct";
+                } else {
+                  return "present";
+                }
               } else {
-                return "present";
+                return "absent";
               }
-            } else {
-              return "absent";
-            }
-          });
+            });
+            
+          }
 
-          return { ...prevGameState, evaluations, rowIndex: prevGameState.rowIndex + 1 };
+          return {
+            ...prevGameState,
+            evaluations,
+            rowIndex,
+          };
         } else {
           return prevGameState;
         }
