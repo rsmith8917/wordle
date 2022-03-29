@@ -1,30 +1,12 @@
 import React from "react";
 import "./GameBoard.css";
-import GameTile from "./GameTile";
+import GameRow from "./GameRow";
 
 function GameBoard({ gameState, width = 350, height = 420 }) {
-  function getLetterArray(word) {
-    const array = ["", "", "", "", ""];
-    for (let i = 0; i < array.length; i++) {
-      array[i] = word[i] || "";
-    }
-    return array;
-  }
   return (
     <div style={{ width, height }} className="game-board">
       {gameState.boardState.map((word, i) => (
-        <div className="game-board-row" key={i}>
-          {getLetterArray(word).map((letter, j) => (
-            <GameTile
-              letter={letter}
-              state={
-                gameState.evaluations?.[i]?.[j] ||
-                (letter ? "pending" : "empty")
-              }
-              key={j}
-            />
-          ))}
-        </div>
+        <GameRow key={i} word={word} evaluations={gameState.evaluations?.[i]} />
       ))}
     </div>
   );

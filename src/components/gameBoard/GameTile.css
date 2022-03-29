@@ -1,4 +1,4 @@
-  @keyframes PopIn {
+  @keyframes pop {
     from {
       transform: scale(0.8);
       opacity: 0;
@@ -10,21 +10,84 @@
     }
   }
 
-  @keyframes FlipIn {
+  @keyframes flip-absent {
     0% {
       transform: rotateX(0);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    49% {
+      transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    50% {
+      transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+      border: none;
     }
     100% {
-      transform: rotateX(-90deg);
+      transform: rotateX(0);
+      background-color: var(--color-absent);
+      color: white;
+      border: none;
     }
   }
 
-  @keyframes FlipOut {
+  @keyframes flip-present {
     0% {
+      transform: rotateX(0);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    49% {
       transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    50% {
+      transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+      border: none;
     }
     100% {
       transform: rotateX(0);
+      background-color: var(--color-present);
+      color: white;
+      border: none;
+    }
+  }
+
+  @keyframes flip-correct {
+    0% {
+      transform: rotateX(0);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    49% {
+      transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: var(--color-tone-1);
+      border: 2px solid var(--color-tone-2);
+    }
+    50% {
+      transform: rotateX(-90deg);
+      background-color: rgba(0, 0, 0, 0);
+      color: white;
+      border: none;
+    }
+    100% {
+      transform: rotateX(0);
+      background-color: var(--color-correct);
+      color: white;
+      border: none;
     }
   }
 
@@ -49,8 +112,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation-duration: 250ms;
   overflow: hidden;
   box-sizing: border-box;
+  transform: rotateX(0);
   animation-fill-mode: forwards;
+  animation-duration: 250ms;
 }
