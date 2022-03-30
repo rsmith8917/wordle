@@ -1,5 +1,28 @@
 import validWords from "./validWords";
 
+//////////////////
+//  gameState
+//////////////////
+//
+//   {
+//     "boardState": ["TERSE", "BOAST", "", "", "", ""],
+//     "evaluations": [
+//       ["correct", "correct", "absent", "correct", "correct"],
+//       ["absent", "absent", "correct", "correct", "present"],
+//       null,
+//       null,
+//       null,
+//       null
+//     ],
+//     "rowIndex": 2,
+//     "solution": "tease",
+//     "gameStatus": "IN_PROGRESS",
+//     "lastPlayedTs": 1647188938196,
+//     "lastCompletedTs": null,
+//     "restoringFromLocalStorage": null,
+//     "hardMode": false
+//   }
+
 function evaluateWord(gameState) {
   if (gameState.boardState[gameState.rowIndex].length === 5) {
     const word = gameState.boardState[gameState.rowIndex];
