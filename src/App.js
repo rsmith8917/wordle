@@ -16,7 +16,8 @@ import Stats from "./components/layout/Stats";
 import Settings from "./components/layout/Settings";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useResizeBoard from "./hooks/useResizeBoard";
-import validWords from "./validWords";
+
+import { addLetter, evaluateWord, removeLetter } from "./gameLogic";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -71,52 +72,12 @@ function App() {
 
   function onKeyPress(key) {
     setGameState((prevGameState) => {
-      const boardStateCopy = [...gameState.boardState];
-
       if (key === "ENTER") {
-        if (prevGameState.boardState[prevGameState.rowIndex].length === 5) {
-          // evaluate word
-          const word = prevGameState.boardState[prevGameState.rowIndex];
-          const evaluations = [...prevGameState.evaluations];
-          let rowIndex = prevGameState.rowIndex;
-          if (validWords.includes(word.toLowerCase())) {
-            rowIndex = rowIndex + 1;
-            evaluations[prevGameState.rowIndex] = word.split("").map((l, i) => {
-              const letter = l.toLowerCase();
-              const solution = prevGameState.solution.split("");
-              if (solution.some((s) => s === letter)) {
-                if (solution[i] === letter) {
-                  return "correct";
-                } else {
-                  return "present";
-                }
-              } else {
-                return "absent";
-              }
-            });
-            
-          }
-
-          return {
-            ...prevGameState,
-            evaluations,
-            rowIndex,
-          };
-        } else {
-          return prevGameState;
-        }
+        return evaluateWord(prevGameState);
       } else if (key === "BACK") {
-        // remove letter from end of word
-        boardStateCopy[prevGameState.rowIndex] = boardStateCopy[
-          prevGameState.rowIndex
-        ].slice(0, -1);
-        return { ...prevGameState, boardState: boardStateCopy };
-      } else if (boardStateCopy[prevGameState.rowIndex].length < 5) {
-        // add letter to end of word
-        boardStateCopy[prevGameState.rowIndex] += key;
-        return { ...prevGameState, boardState: boardStateCopy };
+        return removeLetter(prevGameState);
       } else {
-        return prevGameState;
+        return addLetter(key, prevGameState);
       }
     });
   }

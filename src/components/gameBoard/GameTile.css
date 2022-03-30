@@ -1,95 +1,109 @@
-  @keyframes pop {
-    from {
-      transform: scale(0.8);
-      opacity: 0;
-    }
-
-    40% {
-      transform: scale(1.1);
-      opacity: 1;
-    }
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
   }
 
-  @keyframes flip-absent {
-    0% {
-      transform: rotateX(0);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    49% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    50% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: white;
-      border: none;
-    }
-    100% {
-      transform: rotateX(0);
-      background-color: var(--color-absent);
-      color: white;
-      border: none;
-    }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0% {
+    left: 0px;
   }
 
-  @keyframes flip-present {
-    0% {
-      transform: rotateX(0);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    49% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    50% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: white;
-      border: none;
-    }
-    100% {
-      transform: rotateX(0);
-      background-color: var(--color-present);
-      color: white;
-      border: none;
-    }
+  50% {
+    left: 5px;
   }
 
-  @keyframes flip-correct {
-    0% {
-      transform: rotateX(0);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    49% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: var(--color-tone-1);
-      border: 2px solid var(--color-tone-2);
-    }
-    50% {
-      transform: rotateX(-90deg);
-      background-color: rgba(0, 0, 0, 0);
-      color: white;
-      border: none;
-    }
-    100% {
-      transform: rotateX(0);
-      background-color: var(--color-correct);
-      color: white;
-      border: none;
-    }
+  100% {
+    left: 0px;
   }
+}
+
+@keyframes flip-absent {
+  0% {
+    transform: rotateX(0);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  49% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  50% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+  }
+  100% {
+    transform: rotateX(0);
+    background-color: var(--color-absent);
+    color: white;
+    border: none;
+  }
+}
+
+@keyframes flip-present {
+  0% {
+    transform: rotateX(0);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  49% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  50% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+  }
+  100% {
+    transform: rotateX(0);
+    background-color: var(--color-present);
+    color: white;
+    border: none;
+  }
+}
+
+@keyframes flip-correct {
+  0% {
+    transform: rotateX(0);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  49% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-tone-1);
+    border: 2px solid var(--color-tone-2);
+  }
+  50% {
+    transform: rotateX(-90deg);
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+  }
+  100% {
+    transform: rotateX(0);
+    background-color: var(--color-correct);
+    color: white;
+    border: none;
+  }
+}
 
 .game-tile-container {
   margin: 2px;
@@ -105,8 +119,8 @@
 
 .game-tile {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
   display: flex;

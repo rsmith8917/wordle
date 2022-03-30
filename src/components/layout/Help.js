@@ -14,7 +14,7 @@ function Help() {
         your guess was to the word.
       </div>
       <div className="help-section">
-        <strong>Examples</strong>
+        {/* <strong>Examples</strong>
         <p />
         <div className="help-letter-row">
           <GameTile letter="W" state="correct" />
@@ -40,7 +40,7 @@ function Help() {
           <GameTile letter="G" state="pending" />
           <GameTile letter="U" state="absent" />
           <GameTile letter="E" state="pending" />
-        </div>
+        </div> */}
         The letter U is not in the word in any spot.
         <p />
       </div>

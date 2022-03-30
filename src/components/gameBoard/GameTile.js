@@ -2,6 +2,7 @@ import "./GameTile.css";
 
 function GameTile({ letter, state = "empty" }) {
   function getStyle(state) {
+    console.log(letter + ": " + state);
     if (state === "empty") {
       return {
         color: "var(--color-tone-1)",
@@ -19,22 +20,39 @@ function GameTile({ letter, state = "empty" }) {
       };
     }
     if (state === "absent") {
-      return { color: "white", animationName: "flip-absent", animationDuration: "500ms" };
+      return {
+        color: "white",
+        animationName: "flip-absent",
+        animationDuration: "500ms",
+      };
     }
     if (state === "present") {
-      return { color: "white", animationName: "flip-present", animationDuration: "500ms" };
+      return {
+        color: "white",
+        animationName: "flip-present",
+        animationDuration: "500ms",
+      };
     }
     if (state === "correct") {
-      return { color: "white", animationName: "flip-correct", animationDuration: "500ms" };
+      return {
+        color: "white",
+        animationName: "flip-correct",
+        animationDuration: "500ms",
+      };
+    }
+    if (state === "unknown") {
+      return {
+        color: "var(--color-tone-1)",
+        border: "2px solid var(--color-tone-2)",
+        animationName: "shake",
+        animationDuration: "250ms",
+      };
     }
   }
 
   return (
     <div className="game-tile-container">
-      <div
-        className="game-tile"
-        style={{ ...getStyle(state) }}
-      >
+      <div className="game-tile" style={{ ...getStyle(state) }}>
         {letter}
       </div>
     </div>
