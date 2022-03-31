@@ -24,25 +24,44 @@ import validWords from "./validWords";
 //   }
 
 function evaluateWord(gameState) {
-  if (gameState.boardState[gameState.rowIndex].length === 5) {
-    const word = gameState.boardState[gameState.rowIndex];
-    const evaluations = [...gameState.evaluations];
-    let rowIndex = gameState.rowIndex;
-    if (validWords.includes(word.toLowerCase())) {
-      rowIndex = rowIndex + 1;
-      evaluations[gameState.rowIndex] = word.split("").map((l, i) => {
-        const letter = l.toLowerCase();
-        const solution = gameState.solution.split("");
-        if (solution.some((s) => s === letter)) {
-          if (solution[i] === letter) {
-            return "correct";
-          } else {
-            return "present";
-          }
-        } else {
-          return "absent";
-        }
-      });
+  function inDictionary(word) {
+    return word ? validWords.includes(word.toLowerCase()) : false;
+  }
+
+  function evaluateLetter(solution, letter, index) {
+    function containsLetter(word, letter) {
+      return (
+        word &&
+        letter &&
+        word.split("").some((s) => s.toLowerCase() === letter.toLowerCase())
+      );
+    }
+
+    function letterAt(word, letter, index) {
+      return word[index].toLowerCase() === letter.toLowerCase();
+    }
+
+    return containsLetter(solution, letter)
+      ? letterAt(solution, letter, index)
+        ? "correct"
+        : "present"
+      : "absent";
+  }
+
+  const { boardState, rowIndex, evaluations, solution } = gameState;
+
+  // Check if word is complete
+  if (boardState[rowIndex].length === 5) {
+    // get word from board state
+    const word = boardState[rowIndex];
+    // check word is in dictionary
+    if (inDictionary(word)) {
+      // increment row index
+      gameState.rowIndex = rowIndex + 1;
+      // compare each letter to solution and set evaluations
+      evaluations[rowIndex] = word
+        .split("")
+        .map((letter, index) => evaluateLetter(solution, letter, index));
     } else {
       evaluations[rowIndex] = word.split("").map((w) => "unknown");
     }
@@ -50,7 +69,6 @@ function evaluateWord(gameState) {
     return {
       ...gameState,
       evaluations,
-      rowIndex,
     };
   } else {
     return gameState;
