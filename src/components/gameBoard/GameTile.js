@@ -2,7 +2,6 @@ import "./GameTile.css";
 
 function GameTile({ letter, state = "empty" }) {
   function getStyle(state) {
-    console.log(letter + ": " + state);
     if (state === "empty") {
       return {
         color: "var(--color-tone-1)",

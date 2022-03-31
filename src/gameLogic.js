@@ -58,16 +58,23 @@ function evaluateWord(gameState) {
 }
 
 function addLetter(letter, gameState) {
-  const { boardState, rowIndex } = gameState;
-
-  // If space is available in row ...
-  if (boardState[rowIndex].length < 5) {
-    // ... add letter to end of word
-    boardState[rowIndex] += letter;
-    return { ...gameState, boardState, rowIndex };
-  } else {
-    return gameState;
+  function isValidLetter(letter) {
+    const regex = new RegExp("[A-Z]");
+    return letter && regex.test(letter.toUpperCase());
   }
+
+  if (isValidLetter(letter)) {
+    const { boardState, rowIndex } = gameState;
+
+    // If space is available in row ...
+    if (boardState[rowIndex].length < 5) {
+      // ... add letter to end of word
+      boardState[rowIndex] += letter.toUpperCase();
+      return { ...gameState, boardState, rowIndex };
+    }
+  }
+
+  return gameState;
 }
 
 function removeLetter(gameState) {
