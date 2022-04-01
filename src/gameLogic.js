@@ -23,7 +23,7 @@ import validWords from "./validWords";
 //     "hardMode": false
 //   }
 
-function evaluateWord(gameState) {
+function evaluateWord(gameState, notify) {
   function inDictionary(word) {
     return word ? validWords.includes(word.toLowerCase()) : false;
   }
@@ -63,6 +63,7 @@ function evaluateWord(gameState) {
         .split("")
         .map((letter, index) => evaluateLetter(solution, letter, index));
     } else {
+      notify("Not in word list");
       evaluations[rowIndex] = word.split("").map((w) => "unknown");
     }
 

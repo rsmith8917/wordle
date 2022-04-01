@@ -1,15 +1,3 @@
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 200ms linear;
-}
-
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 200ms, opacity 200ms linear;
-}
-
 .dialog-bg {
   position: absolute;
   z-index: 2;

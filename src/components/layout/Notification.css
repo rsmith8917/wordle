@@ -1,0 +1,17 @@
+.notification {
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    top: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-card {
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 1em;
+    background-color: var(--color-tone-1);
+    color: var(--color-tone-7)
+}

@@ -14,8 +14,10 @@ import Dialog from "./components/layout/Dialog";
 import Help from "./components/layout/Help";
 import Stats from "./components/layout/Stats";
 import Settings from "./components/layout/Settings";
+import Notification from "./components/layout/Notification";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useResizeBoard from "./hooks/useResizeBoard";
+import NotificationContext from "./components/layout/NotificationContext";
 
 import { addLetter, evaluateWord, removeLetter } from "./gameLogic";
 
@@ -28,6 +30,8 @@ function App() {
   const [hardMode, setHardMode] = useLocalStorage("hard-mode", false);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [notificationOpen, setNotificationOpen] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState("");
   const [dialogType, setDialogType] = React.useState("help");
   const [gameState, setGameState] = useLocalStorage("game-state", {
     boardState: ["", "", "", "", "", ""],
@@ -70,10 +74,18 @@ function App() {
     return "";
   }
 
+  function notify(msg) {
+    setNotificationMessage(msg);
+    setNotificationOpen(true);
+    setTimeout(function () {
+      setNotificationOpen(false);
+    }, 1000);
+  }
+
   function onKeyPress(key) {
     setGameState((prevGameState) => {
       if (key === "ENTER") {
-        return evaluateWord(prevGameState);
+        return evaluateWord(prevGameState, notify);
       } else if (key === "BACK") {
         return removeLetter(prevGameState);
       } else {
@@ -83,46 +95,49 @@ function App() {
   }
 
   return (
-    <div className={`root ${darkMode ? "dark-mode" : ""}`}>
-      <div className="header">
-        <div className="header-left">
-          <IconButton icon={faBars} onClick={toggleMenuOpen} />
-          <IconButton icon={faCircleQuestion} onClick={toggleHelpDialog} />
+    <NotificationContext.Provider value={notify}>
+      <div className={`root ${darkMode ? "dark-mode" : ""}`}>
+        <div className="header">
+          <div className="header-left">
+            <IconButton icon={faBars} onClick={toggleMenuOpen} />
+            <IconButton icon={faCircleQuestion} onClick={toggleHelpDialog} />
+          </div>
+          <div className="header-center">
+            <span className="title">Wordle</span>
+          </div>
+          <div className="header-right">
+            <IconButton icon={faChartColumn} onClick={toggleStatsDialog} />
+            <IconButton icon={faGear} onClick={toggleSettingsDialog} />
+          </div>
         </div>
-        <div className="header-center">
-          <span className="title">Wordle</span>
+        <div className="main">
+          <GameBoard {...boardSize} gameState={gameState} />
         </div>
-        <div className="header-right">
-          <IconButton icon={faChartColumn} onClick={toggleStatsDialog} />
-          <IconButton icon={faGear} onClick={toggleSettingsDialog} />
+        <div className="keyboard-container">
+          <Keyboard onKeyPress={onKeyPress} />
         </div>
+        <Notification message={notificationMessage} open={notificationOpen} />
+        <Menu open={menuOpen} setOpen={setMenuOpen} />
+        <Dialog
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+          title={getDialogTitle(dialogType)}
+        >
+          {dialogType === "help" ? <Help /> : null}
+          {dialogType === "stats" ? <Stats /> : null}
+          {dialogType === "settings" ? (
+            <Settings
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              highContrastMode={highContrastMode}
+              setHighContrastMode={setHighContrastMode}
+              hardMode={hardMode}
+              setHardMode={setHardMode}
+            />
+          ) : null}
+        </Dialog>
       </div>
-      <div className="main">
-        <GameBoard {...boardSize} gameState={gameState} />
-      </div>
-      <div className="keyboard-container">
-        <Keyboard onKeyPress={onKeyPress} />
-      </div>
-      <Menu open={menuOpen} setOpen={setMenuOpen} />
-      <Dialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        title={getDialogTitle(dialogType)}
-      >
-        {dialogType === "help" ? <Help /> : null}
-        {dialogType === "stats" ? <Stats /> : null}
-        {dialogType === "settings" ? (
-          <Settings
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-            highContrastMode={highContrastMode}
-            setHighContrastMode={setHighContrastMode}
-            hardMode={hardMode}
-            setHardMode={setHardMode}
-          />
-        ) : null}
-      </Dialog>
-    </div>
+    </NotificationContext.Provider>
   );
 }
 
