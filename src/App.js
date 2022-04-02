@@ -114,7 +114,7 @@ function App() {
           <GameBoard {...boardSize} gameState={gameState} />
         </div>
         <div className="keyboard-container">
-          <Keyboard onKeyPress={onKeyPress} />
+          <Keyboard onKeyPress={onKeyPress} gameState={gameState} />
         </div>
         <Notification message={notificationMessage} open={notificationOpen} />
         <Menu open={menuOpen} setOpen={setMenuOpen} />

@@ -4,22 +4,40 @@
 }
 
 .keyboard-row {
-    width: 100%;
-    margin-bottom: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .keyboard-key {
-    width: 43px;
-    height: 58px;
-    margin-right: 6px;
-    border-radius: 6px;
-    background-color: var(--key-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: small;
+  width: 43px;
+  height: 58px;
+  margin-right: 6px;
+  border-radius: 6px;
+  background-color: var(--key-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: small;
+  user-select: none;
+  color: var(--key-text-color);
+  font-weight: bold;
+}
+
+.keyboard-key-absent {
+  background-color: var(--key-bg-absent);
+  color: var(--key-evaluated-text-color);
+}
+
+.keyboard-key-present {
+  background-color: var(--key-bg-present);
+  color: var(--key-evaluated-text-color);
+}
+
+.keyboard-key-correct {
+  background-color: var(--key-bg-correct);
+  color: var(--key-evaluated-text-color);
 }
