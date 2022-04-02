@@ -37,7 +37,7 @@ function App() {
     boardState: ["", "", "", "", "", ""],
     evaluations: [null, null, null, null, null, null],
     rowIndex: 0,
-    solution: "tease",
+    solution: "tells",
     gameStatus: "IN_PROGRESS",
     lastPlayedTs: 1647188938196,
     lastCompletedTs: null,

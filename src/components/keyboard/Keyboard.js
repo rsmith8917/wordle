@@ -36,8 +36,9 @@ function Keyboard({ onKeyPress, gameState }) {
           }
         });
       });
-      console.log(letterStates);
-      setStates(letterStates);
+      setTimeout(function () {
+        setStates(letterStates);
+      }, 1500);
     },
     [gameState]
   );
