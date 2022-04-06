@@ -12,5 +12,6 @@
 [ ] Share button
 [ ] Add more content to menu
 [ ] Fix tile display in help dialog
-[ ] Fix keyboard rendering on mobile
+[x] Fix keyboard rendering on mobile
 [ ] Reduce tile letter size when board is small
+[ ] Consider count of letters when making evaluations
