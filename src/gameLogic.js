@@ -28,26 +28,6 @@ function evaluateWord(gameState) {
     return word ? validWords.includes(word.toLowerCase()) : false;
   }
 
-  function evaluateLetter(solution, letter, index) {
-    function containsLetter(word, letter) {
-      return (
-        word &&
-        letter &&
-        word.split("").some((s) => s.toLowerCase() === letter.toLowerCase())
-      );
-    }
-
-    function letterAt(word, letter, index) {
-      return word[index].toLowerCase() === letter.toLowerCase();
-    }
-
-    return containsLetter(solution, letter)
-      ? letterAt(solution, letter, index)
-        ? "correct"
-        : "present"
-      : "absent";
-  }
-
   const { boardState, rowIndex, evaluations, solution } = gameState;
 
   // Check if word is complete
@@ -59,9 +39,32 @@ function evaluateWord(gameState) {
       // increment row index
       gameState.rowIndex = rowIndex + 1;
       // compare each letter to solution and set evaluations
-      evaluations[rowIndex] = word
-        .split("")
-        .map((letter, index) => evaluateLetter(solution, letter, index));
+      let guessLetters = word.split("").map((l) => l.toUpperCase());
+      let solutionLetters = solution.split("").map((l) => l.toUpperCase());
+      const evaluation = ["absent", "absent", "absent", "absent", "absent"];
+
+      for (let i = 0; i < 5; i++) {
+        const guess = guessLetters[i];
+        const sol = solutionLetters[i];
+
+        if (guess === sol) {
+          evaluation[i] = "correct";
+          solutionLetters[i] = "_";
+        }
+      }
+
+      for (let i = 0; i < 5; i++) {
+        if (evaluation[i] !== "correct") {
+          const guess = guessLetters[i];
+
+          if (solutionLetters.some((l) => l === guess)) {
+            evaluation[i] = "present";
+            const solMatchIndex = solutionLetters.findIndex((l) => l === guess);
+            solutionLetters[solMatchIndex] = "_";
+          }
+        }
+      }
+      evaluations[rowIndex] = evaluation;
     } else {
       evaluations[rowIndex] = word.split("").map((w) => "unknown");
     }

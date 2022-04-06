@@ -37,7 +37,7 @@ function App() {
     boardState: ["", "", "", "", "", ""],
     evaluations: [null, null, null, null, null, null],
     rowIndex: 0,
-    solution: "tells",
+    solution: "natal",
     gameStatus: "IN_PROGRESS",
     lastPlayedTs: 1647188938196,
     lastCompletedTs: null,
@@ -86,7 +86,9 @@ function App() {
     setGameState((prevGameState) => {
       if (key === "ENTER") {
         const newGameState = evaluateWord(prevGameState);
-        if (newGameState.evaluations[newGameState.rowIndex][0] === "unknown") {
+        if (
+          newGameState?.evaluations?.[newGameState?.rowIndex]?.[0] === "unknown"
+        ) {
           notify("Not in word list");
         }
         return newGameState;
