@@ -212,3 +212,67 @@ test("evaluate unknown word", () => {
     hardMode: false,
   });
 });
+
+test("evaluate word with duplicate letters", () => {
+  const gameState = {
+    boardState: ["FATAL", "", "", "", "", ""],
+    evaluations: [null, null, null, null, null, null],
+    rowIndex: 0,
+    solution: "tease",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  };
+  expect(evaluateWord(gameState)).toStrictEqual({
+    boardState: ["FATAL", "", "", "", "", ""],
+    evaluations: [
+      ["absent", "present", "present", "absent", "absent"],
+      null,
+      null,
+      null,
+      null,
+      null,
+    ],
+    rowIndex: 1,
+    solution: "tease",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  });
+});
+
+test("evaluate word with duplicate letters 2", () => {
+  const gameState = {
+    boardState: ["SOCKS", "", "", "", "", ""],
+    evaluations: [null, null, null, null, null, null],
+    rowIndex: 0,
+    solution: "rocks",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  };
+  expect(evaluateWord(gameState)).toStrictEqual({
+    boardState: ["SOCKS", "", "", "", "", ""],
+    evaluations: [
+      ["absent", "correct", "correct", "correct", "correct"],
+      null,
+      null,
+      null,
+      null,
+      null,
+    ],
+    rowIndex: 1,
+    solution: "rocks",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  });
+});

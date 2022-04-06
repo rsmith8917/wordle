@@ -85,7 +85,11 @@ function App() {
   function onKeyPress(key) {
     setGameState((prevGameState) => {
       if (key === "ENTER") {
-        return evaluateWord(prevGameState, notify);
+        const newGameState = evaluateWord(prevGameState);
+        if (newGameState.evaluations[newGameState.rowIndex][0] === "unknown") {
+          notify("Not in word list");
+        }
+        return newGameState;
       } else if (key === "BACK") {
         return removeLetter(prevGameState);
       } else {
