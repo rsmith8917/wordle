@@ -1,0 +1,27 @@
+.stats-root {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.stats-container {
+    display: flex;
+}
+
+.stats-number-box {
+    margin: 8px;
+}
+
+.stats-number {
+    font-size: xx-large;
+}
+
+.stats-number-label {
+    font-size: small;
+}
+
+.stats-next-wordle {
+    padding: 16px;
+}

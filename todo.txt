@@ -4,9 +4,9 @@
     [ ] Display win notification
     [ ] Prevent adding additional words
     [x] Open statistics dialog
-[ ] Statistics
+[~] Statistics
     [ ] Calculate statistics
-    [ ] Display statistics in dialog
+    [x] Display statistics in dialog
 [ ] Hard mode
 [ ] High Contrast theme
 [ ] Share button
