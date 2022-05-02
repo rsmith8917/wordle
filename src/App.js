@@ -18,9 +18,8 @@ import Notification from "./components/layout/Notification";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useResizeBoard from "./hooks/useResizeBoard";
 import NotificationContext from "./components/layout/NotificationContext";
-
-import { addLetter, evaluateWord, removeLetter } from "./gameLogic";
-import useEventListener from "./hooks/useEventListener";
+import { useNotifications } from "./hooks/useNotifications";
+import { useKeydown } from "./hooks/useKeydown";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -31,8 +30,6 @@ function App() {
   const [hardMode, setHardMode] = useLocalStorage("hard-mode", false);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [notificationOpen, setNotificationOpen] = React.useState(false);
-  const [notificationMessage, setNotificationMessage] = React.useState("");
   const [dialogType, setDialogType] = React.useState("help");
   const [gameState, setGameState] = useLocalStorage("game-state", {
     boardState: ["", "", "", "", "", ""],
@@ -45,27 +42,18 @@ function App() {
     restoringFromLocalStorage: null,
     hardMode: false,
   });
-
+  const [notify, notificationOpen, notificationMessage] = useNotifications();
+  const handleKey = useKeydown(setGameState, notify);
   const boardSize = useResizeBoard();
 
   function toggleMenuOpen() {
     setMenuOpen((prev) => !prev);
   }
 
-  function toggleHelpDialog() {
-    setDialogType("help");
+  const toggleDialog = (type) => () => {
+    setDialogType(type);
     setDialogOpen((prev) => !prev);
-  }
-
-  function toggleStatsDialog() {
-    setDialogType("stats");
-    setDialogOpen((prev) => !prev);
-  }
-
-  function toggleSettingsDialog() {
-    setDialogType("settings");
-    setDialogOpen((prev) => !prev);
-  }
+  };
 
   function getDialogTitle(dialogType) {
     if (dialogType === "help") return "HOW TO PLAY";
@@ -75,80 +63,23 @@ function App() {
     return "";
   }
 
-  const notify = React.useCallback(
-    function (msg) {
-      setNotificationMessage(msg);
-      setNotificationOpen(true);
-      setTimeout(function () {
-        setNotificationOpen(false);
-      }, 1000);
-    },
-    [setNotificationMessage, setNotificationOpen]
-  );
-
-  const handleKey = React.useCallback(
-    function (key) {
-      setGameState((prevGameState) => {
-        if (key === "Enter") {
-          const newGameState = evaluateWord(prevGameState);
-          if (
-            newGameState?.evaluations?.[newGameState?.rowIndex]?.[0] ===
-            "unknown"
-          ) {
-            notify("Not in word list");
-          }
-          return newGameState;
-        } else if (key === "Backspace") {
-          return removeLetter(prevGameState);
-        } else {
-          return addLetter(key, prevGameState);
-        }
-      });
-    },
-    [setGameState, notify]
-  );
-
-  const handleKeyPress = React.useCallback(
-    function (event) {
-      function isBackspace(keyCode) {
-        return keyCode === 8;
-      }
-
-      function isEnter(keyCode) {
-        return keyCode === 13;
-      }
-
-      function isLetter(keyCode) {
-        return keyCode >= 65 && keyCode <= 90;
-      }
-
-      if (
-        isBackspace(event.keyCode) ||
-        isEnter(event.keyCode) ||
-        isLetter(event.keyCode)
-      ) {
-        handleKey(event.key);
-      }
-    },
-    [handleKey]
-  );
-
-  useEventListener("keydown", handleKeyPress);
-
   return (
     <NotificationContext.Provider value={notify}>
       <div className={`root ${darkMode ? "dark-mode" : ""}`}>
         <div className="header">
           <div className="header-left">
             <IconButton icon={faBars} onClick={toggleMenuOpen} />
-            <IconButton icon={faCircleQuestion} onClick={toggleHelpDialog} />
+            <IconButton
+              icon={faCircleQuestion}
+              onClick={toggleDialog("help")}
+            />
           </div>
           <div className="header-center">
             <span className="title">Wordle</span>
           </div>
           <div className="header-right">
-            <IconButton icon={faChartColumn} onClick={toggleStatsDialog} />
-            <IconButton icon={faGear} onClick={toggleSettingsDialog} />
+            <IconButton icon={faChartColumn} onClick={toggleDialog("stats")} />
+            <IconButton icon={faGear} onClick={toggleDialog("settings")} />
           </div>
         </div>
         <div className="main">
