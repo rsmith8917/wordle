@@ -2,8 +2,8 @@
 [~] Handle win state
     [x] Add win animation
     [ ] Display win notification
-    [ ] Prevent adding additional words
-    [x] Open statistics dialog
+    [x] Prevent adding additional words
+    [~] Open statistics dialog
 [~] Statistics
     [ ] Calculate statistics
     [x] Display statistics in dialog

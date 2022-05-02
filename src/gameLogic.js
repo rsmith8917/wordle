@@ -93,7 +93,7 @@ function addLetter(letter, gameState) {
     return letter && regex.test(letter.toUpperCase());
   }
 
-  if (isValidLetter(letter)) {
+  if (gameState?.gameStatus == "IN_PROGRESS" && isValidLetter(letter)) {
     const { boardState, rowIndex } = gameState;
 
     // If space is available in row ...
