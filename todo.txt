@@ -1,4 +1,4 @@
-[ ] Handle key presses
+[x] Handle key presses
 [ ] Handle win state
     [ ] Add win animation
     [ ] Display win notification

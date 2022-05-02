@@ -2,7 +2,7 @@ import "./Keyboard.css";
 
 function KeyboardKey({
   text,
-  onKeyPress,
+  handleKey,
   state = "ready",
   wide = false,
   fontSize = "small",
@@ -13,7 +13,7 @@ function KeyboardKey({
       className={`keyboard-key ${state ? "keyboard-key-" + state : ""}`}
       style={{ width: wide ? 64 : 43, fontSize }}
       onClick={() => {
-        onKeyPress(text);
+        handleKey(text);
       }}
       {...props}
     >

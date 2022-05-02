@@ -20,6 +20,7 @@ import useResizeBoard from "./hooks/useResizeBoard";
 import NotificationContext from "./components/layout/NotificationContext";
 
 import { addLetter, evaluateWord, removeLetter } from "./gameLogic";
+import useEventListener from "./hooks/useEventListener";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -74,31 +75,65 @@ function App() {
     return "";
   }
 
-  function notify(msg) {
-    setNotificationMessage(msg);
-    setNotificationOpen(true);
-    setTimeout(function () {
-      setNotificationOpen(false);
-    }, 1000);
-  }
+  const notify = React.useCallback(
+    function (msg) {
+      setNotificationMessage(msg);
+      setNotificationOpen(true);
+      setTimeout(function () {
+        setNotificationOpen(false);
+      }, 1000);
+    },
+    [setNotificationMessage, setNotificationOpen]
+  );
 
-  function onKeyPress(key) {
-    setGameState((prevGameState) => {
-      if (key === "ENTER") {
-        const newGameState = evaluateWord(prevGameState);
-        if (
-          newGameState?.evaluations?.[newGameState?.rowIndex]?.[0] === "unknown"
-        ) {
-          notify("Not in word list");
+  const handleKey = React.useCallback(
+    function (key) {
+      setGameState((prevGameState) => {
+        if (key === "Enter") {
+          const newGameState = evaluateWord(prevGameState);
+          if (
+            newGameState?.evaluations?.[newGameState?.rowIndex]?.[0] ===
+            "unknown"
+          ) {
+            notify("Not in word list");
+          }
+          return newGameState;
+        } else if (key === "Backspace") {
+          return removeLetter(prevGameState);
+        } else {
+          return addLetter(key, prevGameState);
         }
-        return newGameState;
-      } else if (key === "BACK") {
-        return removeLetter(prevGameState);
-      } else {
-        return addLetter(key, prevGameState);
+      });
+    },
+    [setGameState, notify]
+  );
+
+  const handleKeyPress = React.useCallback(
+    function (event) {
+      function isBackspace(keyCode) {
+        return keyCode === 8;
       }
-    });
-  }
+
+      function isEnter(keyCode) {
+        return keyCode === 13;
+      }
+
+      function isLetter(keyCode) {
+        return keyCode >= 65 && keyCode <= 90;
+      }
+
+      if (
+        isBackspace(event.keyCode) ||
+        isEnter(event.keyCode) ||
+        isLetter(event.keyCode)
+      ) {
+        handleKey(event.key);
+      }
+    },
+    [handleKey]
+  );
+
+  useEventListener("keydown", handleKeyPress);
 
   return (
     <NotificationContext.Provider value={notify}>
@@ -120,7 +155,7 @@ function App() {
           <GameBoard {...boardSize} gameState={gameState} />
         </div>
         <div className="keyboard-container">
-          <Keyboard onKeyPress={onKeyPress} gameState={gameState} />
+          <Keyboard handleKey={handleKey} gameState={gameState} />
         </div>
         <Notification message={notificationMessage} open={notificationOpen} />
         <Menu open={menuOpen} setOpen={setMenuOpen} />

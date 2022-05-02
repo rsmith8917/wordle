@@ -4,7 +4,7 @@ import KeyboardKey from "./KeyboardKey";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Keyboard({ onKeyPress, gameState }) {
+function Keyboard({ handleKey, gameState }) {
   const [states, setStates] = React.useState({});
 
   React.useEffect(
@@ -24,6 +24,7 @@ function Keyboard({ onKeyPress, gameState }) {
               if (letterStates[l] !== "correct") {
                 letterStates[l] = "present";
               }
+              break;
             case "absent":
               if (
                 letterStates[l] !== "correct" &&
@@ -31,6 +32,7 @@ function Keyboard({ onKeyPress, gameState }) {
               ) {
                 letterStates[l] = "absent";
               }
+              break;
             default:
               break;
           }
@@ -46,43 +48,49 @@ function Keyboard({ onKeyPress, gameState }) {
   return (
     <div className="keyboard">
       <div className="keyboard-row">
-        <KeyboardKey text="Q" state={states["Q"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="W" state={states["W"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="E" state={states["E"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="R" state={states["R"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="T" state={states["T"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="Y" state={states["Y"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="U" state={states["U"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="I" state={states["I"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="O" state={states["O"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="P" state={states["P"]} onKeyPress={onKeyPress} />
+        <KeyboardKey text="Q" state={states["Q"]} handleKey={handleKey} />
+        <KeyboardKey text="W" state={states["W"]} handleKey={handleKey} />
+        <KeyboardKey text="E" state={states["E"]} handleKey={handleKey} />
+        <KeyboardKey text="R" state={states["R"]} handleKey={handleKey} />
+        <KeyboardKey text="T" state={states["T"]} handleKey={handleKey} />
+        <KeyboardKey text="Y" state={states["Y"]} handleKey={handleKey} />
+        <KeyboardKey text="U" state={states["U"]} handleKey={handleKey} />
+        <KeyboardKey text="I" state={states["I"]} handleKey={handleKey} />
+        <KeyboardKey text="O" state={states["O"]} handleKey={handleKey} />
+        <KeyboardKey text="P" state={states["P"]} handleKey={handleKey} />
       </div>
       <div className="keyboard-row">
-        <KeyboardKey text="A" state={states["A"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="S" state={states["S"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="D" state={states["D"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="F" state={states["F"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="G" state={states["G"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="H" state={states["H"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="J" state={states["J"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="K" state={states["K"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="L" state={states["L"]} onKeyPress={onKeyPress} />
+        <KeyboardKey text="A" state={states["A"]} handleKey={handleKey} />
+        <KeyboardKey text="S" state={states["S"]} handleKey={handleKey} />
+        <KeyboardKey text="D" state={states["D"]} handleKey={handleKey} />
+        <KeyboardKey text="F" state={states["F"]} handleKey={handleKey} />
+        <KeyboardKey text="G" state={states["G"]} handleKey={handleKey} />
+        <KeyboardKey text="H" state={states["H"]} handleKey={handleKey} />
+        <KeyboardKey text="J" state={states["J"]} handleKey={handleKey} />
+        <KeyboardKey text="K" state={states["K"]} handleKey={handleKey} />
+        <KeyboardKey text="L" state={states["L"]} handleKey={handleKey} />
       </div>
       <div className="keyboard-row">
-        <KeyboardKey text="ENTER" wide onKeyPress={onKeyPress} />
-        <KeyboardKey text="Z" state={states["Z"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="X" state={states["X"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="C" state={states["C"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="V" state={states["V"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="B" state={states["B"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="N" state={states["N"]} onKeyPress={onKeyPress} />
-        <KeyboardKey text="M" state={states["M"]} onKeyPress={onKeyPress} />
+        <KeyboardKey
+          text="ENTER"
+          wide
+          handleKey={() => {
+            handleKey("Enter");
+          }}
+        />
+        <KeyboardKey text="Z" state={states["Z"]} handleKey={handleKey} />
+        <KeyboardKey text="X" state={states["X"]} handleKey={handleKey} />
+        <KeyboardKey text="C" state={states["C"]} handleKey={handleKey} />
+        <KeyboardKey text="V" state={states["V"]} handleKey={handleKey} />
+        <KeyboardKey text="B" state={states["B"]} handleKey={handleKey} />
+        <KeyboardKey text="N" state={states["N"]} handleKey={handleKey} />
+        <KeyboardKey text="M" state={states["M"]} handleKey={handleKey} />
         <KeyboardKey
           text={<FontAwesomeIcon icon={faDeleteLeft} />}
           wide
           fontSize="large"
-          onKeyPress={() => {
-            onKeyPress("BACK");
+          handleKey={() => {
+            handleKey("Backspace");
           }}
         />
       </div>
