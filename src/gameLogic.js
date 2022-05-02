@@ -28,10 +28,12 @@ function evaluateWord(gameState) {
     return word ? validWords.includes(word.toLowerCase()) : false;
   }
 
-  const { boardState, rowIndex, evaluations, solution } = gameState;
+  const { boardState, rowIndex, evaluations, solution, gameStatus } = gameState;
 
   // Check if word is complete
   if (boardState[rowIndex].length === 5) {
+    let status = gameStatus;
+
     // get word from board state
     const word = boardState[rowIndex];
     // check word is in dictionary
@@ -65,6 +67,12 @@ function evaluateWord(gameState) {
         }
       }
       evaluations[rowIndex] = evaluation;
+
+      if (evaluation.every((e) => e === "correct")) {
+        status = "COMPLETE_WIN";
+      } else if (rowIndex === 5) {
+        status = "COMPLETE_LOSS";
+      }
     } else {
       evaluations[rowIndex] = word.split("").map((w) => "unknown");
     }
@@ -72,6 +80,7 @@ function evaluateWord(gameState) {
     return {
       ...gameState,
       evaluations,
+      gameStatus: status,
     };
   } else {
     return gameState;

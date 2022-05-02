@@ -63,6 +63,16 @@ function App() {
     return "";
   }
 
+  React.useEffect(
+    function () {
+      if (gameState?.gameStatus === "COMPLETE_WIN") {
+        setDialogType("stats");
+        setDialogOpen(true);
+      }
+    },
+    [gameState?.gameStatus, notify]
+  );
+
   return (
     <NotificationContext.Provider value={notify}>
       <div className={`root ${darkMode ? "dark-mode" : ""}`}>

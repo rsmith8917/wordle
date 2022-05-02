@@ -1,9 +1,9 @@
 [x] Handle key presses
-[ ] Handle win state
+[~] Handle win state
     [ ] Add win animation
     [ ] Display win notification
     [ ] Prevent adding additional words
-    [ ] Open statistics dialog
+    [x] Open statistics dialog
 [ ] Statistics
     [ ] Calculate statistics
     [ ] Display statistics in dialog

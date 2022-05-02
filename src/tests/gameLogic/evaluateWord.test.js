@@ -173,7 +173,7 @@ test("evaluate correct word", () => {
     ],
     rowIndex: 1,
     solution: "tease",
-    gameStatus: "IN_PROGRESS",
+    gameStatus: "COMPLETE_WIN",
     lastPlayedTs: 1647188938196,
     lastCompletedTs: null,
     restoringFromLocalStorage: null,
@@ -364,6 +364,84 @@ test("evaluate word with duplicate letters 5", () => {
       null,
     ],
     rowIndex: 1,
+    solution: "natal",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  });
+});
+
+test("evaluate lost game", () => {
+  const gameState = {
+    boardState: ["TOAST", "TOAST", "TOAST", "TOAST", "TOAST", "TOAST"],
+    evaluations: [
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      null,
+    ],
+    rowIndex: 5,
+    solution: "natal",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  };
+  expect(evaluateWord(gameState)).toStrictEqual({
+    boardState: ["TOAST", "TOAST", "TOAST", "TOAST", "TOAST", "TOAST"],
+    evaluations: [
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+    ],
+    rowIndex: 6,
+    solution: "natal",
+    gameStatus: "COMPLETE_LOSS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  });
+});
+
+test("evaluate last unknown word", () => {
+  const gameState = {
+    boardState: ["TOAST", "TOAST", "TOAST", "TOAST", "TOAST", "ABCDE"],
+    evaluations: [
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      null,
+    ],
+    rowIndex: 5,
+    solution: "natal",
+    gameStatus: "IN_PROGRESS",
+    lastPlayedTs: 1647188938196,
+    lastCompletedTs: null,
+    restoringFromLocalStorage: null,
+    hardMode: false,
+  };
+  expect(evaluateWord(gameState)).toStrictEqual({
+    boardState: ["TOAST", "TOAST", "TOAST", "TOAST", "TOAST", "ABCDE"],
+    evaluations: [
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["present", "absent", "present", "absent", "absent"],
+      ["unknown", "unknown", "unknown", "unknown", "unknown"],
+    ],
+    rowIndex: 5,
     solution: "natal",
     gameStatus: "IN_PROGRESS",
     lastPlayedTs: 1647188938196,
