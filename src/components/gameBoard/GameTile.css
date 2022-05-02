@@ -142,3 +142,9 @@
   animation-fill-mode: forwards;
   animation-duration: 250ms;
 }
+
+@media only screen and (max-width: 500px) {
+  .game-tile-container {
+    font-size: x-large;
+  }
+}
