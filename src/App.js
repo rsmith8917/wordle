@@ -66,8 +66,8 @@ function App() {
   React.useEffect(
     function () {
       if (gameState?.gameStatus === "COMPLETE_WIN") {
-        setDialogType("stats");
-        setDialogOpen(true);
+        // setDialogType("stats");
+        // setDialogOpen(true);
       }
     },
     [gameState?.gameStatus, notify]

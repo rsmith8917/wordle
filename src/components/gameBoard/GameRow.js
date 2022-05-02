@@ -12,12 +12,14 @@ function GameRow({ word, evaluations }) {
   }
 
   const [evals, setEvals] = React.useState([]);
+  const [win, setWin] = React.useState([false, false, false, false, false]);
 
   React.useEffect(
     function () {
       if (evaluations?.length) {
         if (evaluations[0] === "unknown") {
           setEvals(evaluations);
+          setWin([false, false, false, false, false]);
         } else {
           const duration = 250;
           setEvals((e) => [...e, evaluations[0]]);
@@ -34,9 +36,28 @@ function GameRow({ word, evaluations }) {
           setTimeout(function () {
             setEvals((e) => [...e, evaluations[4]]);
           }, duration * 4);
+
+          if (evaluations.every((e) => e === "correct")) {
+            setTimeout(function () {
+              setWin([true, false, false, false, false]);
+            }, duration * 5);
+            setTimeout(function () {
+              setWin([true, true, false, false, false]);
+            }, duration * 6);
+            setTimeout(function () {
+              setWin([true, true, true, false, false]);
+            }, duration * 7);
+            setTimeout(function () {
+              setWin([true, true, true, true, false]);
+            }, duration * 8);
+            setTimeout(function () {
+              setWin([true, true, true, true, true]);
+            }, duration * 9);
+          }
         }
       } else {
         setEvals([]);
+        setWin([false, false, false, false, false]);
       }
     },
     [evaluations]
@@ -48,6 +69,7 @@ function GameRow({ word, evaluations }) {
         <GameTile
           letter={letter}
           state={!letter ? "empty" : evals?.[j] || "pending"}
+          win={win?.[j] ?? false}
           key={j}
         />
       ))}

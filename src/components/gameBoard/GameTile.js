@@ -1,7 +1,7 @@
 import "./GameTile.css";
 import React from "react";
 
-function GameTile({ letter, state = "empty" }) {
+function GameTile({ letter, state = "empty", win = false }) {
   const prevStateRef = React.useRef(null);
   const [tileStyle, setTileStyle] = React.useState({});
 
@@ -54,11 +54,18 @@ function GameTile({ letter, state = "empty" }) {
           animationDuration: "250ms",
         };
       }
+      if (win) {
+        newStyle = {
+          color: "white",
+          animationName: "jump",
+          animationDuration: "500ms",
+        };
+      }
 
       prevStateRef.current = state;
       setTileStyle(newStyle);
     },
-    [state]
+    [state, win]
   );
 
   return (

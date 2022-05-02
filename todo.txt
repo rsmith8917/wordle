@@ -1,6 +1,6 @@
 [x] Handle key presses
 [~] Handle win state
-    [ ] Add win animation
+    [x] Add win animation
     [ ] Display win notification
     [ ] Prevent adding additional words
     [x] Open statistics dialog
