@@ -12,7 +12,6 @@ function GameRow({ word, evaluations }) {
   }
 
   const [evals, setEvals] = React.useState([]);
-  console.log(`${word}: ${JSON.stringify(evals)}`);
   const [win, setWin] = React.useState([false, false, false, false, false]);
   const timeoutIdsRef = React.useRef([]);
 

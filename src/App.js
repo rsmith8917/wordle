@@ -32,7 +32,7 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogType, setDialogType] = React.useState("help");
-  const [gameState, setGameState] = useLocalStorage("game-state", {
+  const [gameState, setGameState] = React.useState({
     boardState: ["", "", "", "", "", ""],
     evaluations: [null, null, null, null, null, null],
     rowIndex: 0,
@@ -106,6 +106,7 @@ function App() {
           counts: prev.counts.map((c, i) => (i + 1 === numGuesses ? c + 1 : c)),
         }));
         setDialogType("stats");
+        notify("You win!");
         timeoutIdRef.current = setTimeout(function () {
           setDialogOpen(true);
         }, 2250);
@@ -121,6 +122,7 @@ function App() {
           counts: prev.counts,
         }));
         setDialogType("stats");
+        notify(gameState.solution.toUpperCase());
         timeoutIdRef.current = setTimeout(function () {
           setDialogOpen(true);
         }, 2250);
@@ -131,7 +133,13 @@ function App() {
         }
       };
     },
-    [gameState?.gameStatus, gameState?.boardState, notify, setStats]
+    [
+      gameState?.gameStatus,
+      gameState?.boardState,
+      gameState.solution,
+      notify,
+      setStats,
+    ]
   );
 
   return (

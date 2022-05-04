@@ -1,11 +1,11 @@
 [x] Handle key presses
-[~] Handle win state
+[x] Handle win state
     [x] Add win animation
-    [ ] Display win notification
+    [x] Display win notification
     [x] Prevent adding additional words
-    [~] Open statistics dialog
-[~] Statistics
-    [ ] Calculate statistics
+    [x] Open statistics dialog
+[x] Statistics
+    [x] Calculate statistics
     [x] Display statistics in dialog
 [ ] Hard mode
 [ ] High Contrast theme
