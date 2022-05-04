@@ -42,6 +42,14 @@ function App() {
     restoringFromLocalStorage: null,
     hardMode: false,
   });
+  const [stats, setStats] = useLocalStorage("game-stats", {
+    played: 0,
+    won: 0,
+    winPercentage: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    counts: [0, 0, 0, 0, 0, 0],
+  });
   const [notify, notificationOpen, notificationMessage] = useNotifications();
   const handleKey = useKeydown(setGameState, notify);
   const boardSize = useResizeBoard();
@@ -66,11 +74,35 @@ function App() {
   React.useEffect(
     function () {
       if (gameState?.gameStatus === "COMPLETE_WIN") {
-        // setDialogType("stats");
-        // setDialogOpen(true);
+        setStats((prev) => ({
+          played: prev.played + 1,
+          won: prev.won + 1,
+          winPercentage: ((prev.won + 1) / (prev.played + 1)) * 100,
+          currentStreak: prev.currentStreak + 1,
+          maxStreak: Math.max(prev.currentStreak + 1, prev.maxStreak),
+          counts: [0, 0, 0, 0, 0, 0],
+        }));
+        setDialogType("stats");
+        setTimeout(function () {
+          setDialogOpen(true);
+        }, 2250);
+      }
+      if (gameState?.gameStatus === "COMPLETE_LOSS") {
+        setStats((prev) => ({
+          played: prev.played + 1,
+          won: prev.won,
+          winPercentage: (prev.won / (prev.played + 1)) * 100,
+          currentStreak: 0,
+          maxStreak: Math.max(0, prev.maxStreak),
+          counts: [0, 0, 0, 0, 0, 0],
+        }));
+        setDialogType("stats");
+        setTimeout(function () {
+          setDialogOpen(true);
+        }, 2250);
       }
     },
-    [gameState?.gameStatus, notify]
+    [gameState?.gameStatus, notify, setStats]
   );
 
   return (
@@ -106,7 +138,7 @@ function App() {
           title={getDialogTitle(dialogType)}
         >
           {dialogType === "help" ? <Help /> : null}
-          {dialogType === "stats" ? <Stats /> : null}
+          {dialogType === "stats" ? <Stats {...stats} /> : null}
           {dialogType === "settings" ? (
             <Settings
               darkMode={darkMode}

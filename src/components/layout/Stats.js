@@ -8,24 +8,32 @@ function Stats({ played, winPercentage, currentStreak, maxStreak, counts }) {
     <div className="stats-root">
       <div className="stats-container">
         <div className="stats-number-box">
-          <span className="stats-number">{played || 0}</span>
+          <span className="stats-number">
+            {parseInt(Math.round(played) || 0)}
+          </span>
           <br />
           <span className="stats-number-label">Played</span>
         </div>
         <div className="stats-number-box">
-          <span className="stats-number">{winPercentage || 0}</span>
+          <span className="stats-number">
+            {parseInt(Math.round(winPercentage) || 0)}
+          </span>
           <br />
           <span className="stats-number-label">Win %</span>
         </div>
         <div className="stats-number-box">
-          <span className="stats-number">{currentStreak || 0}</span>
+          <span className="stats-number">
+            {parseInt(Math.round(currentStreak) || 0)}
+          </span>
           <br />
           <span className="stats-number-label">Current</span>
           <br />
           <span className="stats-number-label">Streak</span>
         </div>
         <div className="stats-number-box">
-          <span className="stats-number">{maxStreak || 0}</span>
+          <span className="stats-number">
+            {parseInt(Math.round(maxStreak) || 0)}
+          </span>
           <br />
           <span className="stats-number-label">Max</span>
           <br />

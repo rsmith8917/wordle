@@ -9,7 +9,7 @@ function Graph({ counts }) {
       <span className="dialog-title">GUESS DISTRIBUTION</span>
       <div className="graph-container">
         {counts.map((count, i) => (
-          <div className="graph-bar-container">
+          <div className="graph-bar-container" key={i}>
             <div className="graph-bar-index">{i + 1}</div>
             <div className="graph-bar">
               <div
