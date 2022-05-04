@@ -1,7 +1,7 @@
 import Button from "../common/Button";
 import Graph from "./Graph";
 import "./Stats.css";
-import { faRotateRight, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
 function Stats({ played, winPercentage, currentStreak, maxStreak, counts }) {
   return (
@@ -42,9 +42,7 @@ function Stats({ played, winPercentage, currentStreak, maxStreak, counts }) {
       </div>
       <Graph counts={counts} />
       <div className="stats-container">
-        <div className="stats-next-wordle">
-          <Button label="PLAY AGAIN" icon={faRotateRight} />
-        </div>
+        <div className="stats-next-wordle"></div>
         <div className="stats-next-wordle">
           <Button label="SHARE" icon={faShareNodes} />
         </div>

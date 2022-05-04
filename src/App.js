@@ -20,6 +20,7 @@ import useResizeBoard from "./hooks/useResizeBoard";
 import NotificationContext from "./components/layout/NotificationContext";
 import { useNotifications } from "./hooks/useNotifications";
 import { useKeydown } from "./hooks/useKeydown";
+import validWords from "./validWords";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -35,7 +36,7 @@ function App() {
     boardState: ["", "", "", "", "", ""],
     evaluations: [null, null, null, null, null, null],
     rowIndex: 0,
-    solution: "natal",
+    solution: "",
     gameStatus: "IN_PROGRESS",
     lastPlayedTs: 1647188938196,
     lastCompletedTs: null,
@@ -53,6 +54,7 @@ function App() {
   const [notify, notificationOpen, notificationMessage] = useNotifications();
   const handleKey = useKeydown(setGameState, notify);
   const boardSize = useResizeBoard();
+  const timeoutIdRef = React.useRef(null);
 
   function toggleMenuOpen() {
     setMenuOpen((prev) => !prev);
@@ -73,17 +75,36 @@ function App() {
 
   React.useEffect(
     function () {
+      const randomIdx = Math.floor(Math.random() * (validWords.length - 1));
+      setGameState((prev) => ({
+        boardState: ["", "", "", "", "", ""],
+        evaluations: [null, null, null, null, null, null],
+        rowIndex: 0,
+        solution: validWords[randomIdx],
+        gameStatus: "IN_PROGRESS",
+        lastPlayedTs: 1647188938196,
+        lastCompletedTs: null,
+        restoringFromLocalStorage: null,
+        hardMode: false,
+      }));
+    },
+    [setGameState]
+  );
+
+  React.useEffect(
+    function () {
       if (gameState?.gameStatus === "COMPLETE_WIN") {
+        const numGuesses = gameState.boardState.filter((w) => !!w).length;
         setStats((prev) => ({
           played: prev.played + 1,
           won: prev.won + 1,
           winPercentage: ((prev.won + 1) / (prev.played + 1)) * 100,
           currentStreak: prev.currentStreak + 1,
           maxStreak: Math.max(prev.currentStreak + 1, prev.maxStreak),
-          counts: [0, 0, 0, 0, 0, 0],
+          counts: prev.counts.map((c, i) => (i + 1 === numGuesses ? c + 1 : c)),
         }));
         setDialogType("stats");
-        setTimeout(function () {
+        timeoutIdRef.current = setTimeout(function () {
           setDialogOpen(true);
         }, 2250);
       }
@@ -94,15 +115,20 @@ function App() {
           winPercentage: (prev.won / (prev.played + 1)) * 100,
           currentStreak: 0,
           maxStreak: Math.max(0, prev.maxStreak),
-          counts: [0, 0, 0, 0, 0, 0],
+          counts: prev.counts,
         }));
         setDialogType("stats");
-        setTimeout(function () {
+        timeoutIdRef.current = setTimeout(function () {
           setDialogOpen(true);
         }, 2250);
       }
+      return function () {
+        if (timeoutIdRef.current) {
+          clearTimeout(timeoutIdRef.current);
+        }
+      };
     },
-    [gameState?.gameStatus, notify, setStats]
+    [gameState?.gameStatus, gameState?.boardState, notify, setStats]
   );
 
   return (
