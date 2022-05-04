@@ -33,3 +33,7 @@
     padding-right: 4px;
     min-width: 20px;
 }
+
+.graph-bar-highlight {
+    background-color: var(--color-correct);
+}

@@ -3,7 +3,14 @@ import Graph from "./Graph";
 import "./Stats.css";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 
-function Stats({ played, winPercentage, currentStreak, maxStreak, counts }) {
+function Stats({
+  played,
+  winPercentage,
+  currentStreak,
+  maxStreak,
+  counts,
+  numGuesses,
+}) {
   return (
     <div className="stats-root">
       <div className="stats-container">
@@ -40,7 +47,7 @@ function Stats({ played, winPercentage, currentStreak, maxStreak, counts }) {
           <span className="stats-number-label">Streak</span>
         </div>
       </div>
-      <Graph counts={counts} />
+      <Graph counts={counts} highlight={numGuesses} />
       <div className="stats-container">
         <div className="stats-next-wordle"></div>
         <div className="stats-next-wordle">

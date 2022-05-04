@@ -49,6 +49,7 @@ function App() {
     winPercentage: 0,
     currentStreak: 0,
     maxStreak: 0,
+    numGuesses: 0,
     counts: [0, 0, 0, 0, 0, 0],
   });
   const [notify, notificationOpen, notificationMessage] = useNotifications();
@@ -93,14 +94,15 @@ function App() {
 
   React.useEffect(
     function () {
+      const numGuesses = gameState?.boardState?.filter((w) => !!w)?.length;
       if (gameState?.gameStatus === "COMPLETE_WIN") {
-        const numGuesses = gameState.boardState.filter((w) => !!w).length;
         setStats((prev) => ({
           played: prev.played + 1,
           won: prev.won + 1,
           winPercentage: ((prev.won + 1) / (prev.played + 1)) * 100,
           currentStreak: prev.currentStreak + 1,
           maxStreak: Math.max(prev.currentStreak + 1, prev.maxStreak),
+          numGuesses,
           counts: prev.counts.map((c, i) => (i + 1 === numGuesses ? c + 1 : c)),
         }));
         setDialogType("stats");
@@ -115,6 +117,7 @@ function App() {
           winPercentage: (prev.won / (prev.played + 1)) * 100,
           currentStreak: 0,
           maxStreak: Math.max(0, prev.maxStreak),
+          numGuesses,
           counts: prev.counts,
         }));
         setDialogType("stats");

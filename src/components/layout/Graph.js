@@ -1,7 +1,7 @@
 import React from "react";
 import "./Graph.css";
 
-function Graph({ counts }) {
+function Graph({ counts, highlight }) {
   const maxCount = counts ? Math.max(...counts) : 0;
 
   return counts ? (
@@ -13,7 +13,9 @@ function Graph({ counts }) {
             <div className="graph-bar-index">{i + 1}</div>
             <div className="graph-bar">
               <div
-                className="graph-bar-color"
+                className={`graph-bar-color ${
+                  i + 1 === highlight ? "graph-bar-highlight" : ""
+                }`}
                 style={{ width: `${(count / maxCount) * 100}%` }}
               >
                 {count}
