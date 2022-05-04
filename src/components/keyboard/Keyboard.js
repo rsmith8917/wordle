@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Keyboard({ handleKey, gameState }) {
   const [states, setStates] = React.useState({});
+  const timeoutIdRef = React.useRef(null);
 
   React.useEffect(
     function () {
@@ -38,9 +39,15 @@ function Keyboard({ handleKey, gameState }) {
           }
         });
       });
-      setTimeout(function () {
+      timeoutIdRef.current = setTimeout(function () {
         setStates(letterStates);
       }, 1500);
+
+      return function () {
+        if (timeoutIdRef.current) {
+          clearTimeout(timeoutIdRef.current);
+        }
+      };
     },
     [gameState]
   );
