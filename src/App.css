@@ -1,7 +1,6 @@
 .root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -12,6 +11,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-wrap: nowrap;
 }
 
 .title {

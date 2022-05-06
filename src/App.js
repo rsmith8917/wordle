@@ -21,6 +21,7 @@ import NotificationContext from "./components/layout/NotificationContext";
 import { useNotifications } from "./hooks/useNotifications";
 import { useKeydown } from "./hooks/useKeydown";
 import validWords from "./validWords";
+import useResizeRoot from "./hooks/useResizeRoot";
 
 function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
@@ -54,7 +55,8 @@ function App() {
   });
   const [notify, notificationOpen, notificationMessage] = useNotifications();
   const handleKey = useKeydown(setGameState, notify);
-  const boardSize = useResizeBoard();
+  const rootHeight = useResizeRoot();
+  const boardSize = useResizeBoard(rootHeight);
   const timeoutIdRef = React.useRef(null);
 
   function toggleMenuOpen() {
@@ -144,7 +146,7 @@ function App() {
 
   return (
     <NotificationContext.Provider value={notify}>
-      <div className={`root ${darkMode ? "dark-mode" : ""}`}>
+      <div className={`root ${darkMode ? "dark-mode" : ""}`} style={{ height: rootHeight }}>
         <div className="header">
           <div className="header-left">
             <IconButton icon={faBars} onClick={toggleMenuOpen} />
